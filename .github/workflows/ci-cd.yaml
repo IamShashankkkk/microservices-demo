@@ -1,34 +1,11 @@
-name: CI-CD Pipeline
+name: Test Workflow
 
 on:
   push:
-    branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build & Push Greeting Service
-      run: |
-        cd greeting-service
-        mvn clean package -DskipTests
-        docker build -t shashank2033/greeting-service:latest .
-        docker push shashank2033/greeting-service:latest
-
-    - name: Build & Push Time Service
-      run: |
-        cd time-service
-        mvn clean package -DskipTests
-        docker build -t shashank2033/time-service:latest .
-        docker push shashank2033/time-service:latest
+      - run: echo "GitHub Actions is working"
 
